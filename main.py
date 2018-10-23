@@ -110,6 +110,34 @@ def main():
 		mouseBall.setPos(moveData["currentPos"])
 		mouseBall.setVelocity(mouseVelocity)
 
+
+		#gravity adjustment
+		if heldKeys[pygame.K_i]:
+			GRAVITY = max(0.0001,GRAVITY+0.1)
+		elif heldKeys[pygame.K_k]:
+			GRAVITY  = max(0.0001,GRAVITY-0.1)
+
+		#ball radius
+		if heldKeys[pygame.K_o]:
+			ball.radius = max(0.1,ball.radius+0.01)
+		elif heldKeys[pygame.K_l]:
+			ball.radius = max(0.1,ball.radius-0.01)
+
+		#string length
+		if heldKeys[pygame.K_u]:
+			string.length = max(0,string.length+0.01)
+		elif heldKeys[pygame.K_j]:
+			string.length = max(0,string.length-0.01)
+
+
+		#reset all
+		if heldKeys[pygame.K_r]:
+			GRAVITY = 9.81
+			ball.radius = 0.1
+			string.length = 2.0
+
+
+
 		if ball.bottom <= 0:
 			if ball.velocity.y < 0:
 				ball.accelerate(Vector((0, -ball.velocity.y-ball.velocity.y*ball.cor)))
@@ -173,7 +201,25 @@ def main():
 		DISPLAY.blit(ballVelLabel, (10, 30))
 		mouseVelLabel = font.render("Mouse velocity: {:.2f}ms-1".format(mouseBall.velocity.mag), 1, BLACK)
 		DISPLAY.blit(mouseVelLabel, (10, 50))
+		gravityVelLabel = font.render("Gravity: {}ms-2".format(GRAVITY), 1, BLACK)
+		DISPLAY.blit(gravityVelLabel, (10, 70))
+		diameterVelLabel = font.render("Ball diameter: {:.2f}m".format(ball.radius*2), 1, BLACK)
+		DISPLAY.blit(diameterVelLabel, (10, 90))
+		stringVelLabel = font.render("String length: {:.2f}m".format(string.length), 1, BLACK)
+		DISPLAY.blit(stringVelLabel, (10, 110))
 
+
+		#control prompts
+		stringConnect = font.render("Connect string:           SPACE", 1, BLACK)
+		DISPLAY.blit(stringConnect, (480, 10))
+		stringControl = font.render("String length +/-:        U/J", 1, BLACK)
+		DISPLAY.blit(stringControl, (480, 30))
+		gravityControl = font.render("Gravity +/-:              I/K", 1, BLACK)
+		DISPLAY.blit(gravityControl, (480, 50))
+		diameterControl = font.render("Ball diameter +/-:        O/L", 1, BLACK)
+		DISPLAY.blit(diameterControl, (480, 70))
+		resetAllControl = font.render("Reset all:                R", 1, BLACK)
+		DISPLAY.blit(resetAllControl, (480, 90))
 		pygame.display.update()
 		CLOCK.tick(120)
 
