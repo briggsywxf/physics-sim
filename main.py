@@ -113,21 +113,21 @@ def main():
 
 		#gravity adjustment
 		if heldKeys[pygame.K_i]:
-			GRAVITY = max(0.0001,GRAVITY+0.1)
+			GRAVITY = min(30.0,GRAVITY+0.1)
 		elif heldKeys[pygame.K_k]:
-			GRAVITY  = max(0.0001,GRAVITY-0.1)
+			GRAVITY  = max(0.0,GRAVITY-0.1)
 
 		#ball radius
 		if heldKeys[pygame.K_o]:
-			ball.radius = max(0.1,ball.radius+0.01)
+			ball.radius = min(4.0,ball.radius+0.01)
 		elif heldKeys[pygame.K_l]:
 			ball.radius = max(0.1,ball.radius-0.01)
 
 		#string length
 		if heldKeys[pygame.K_u]:
-			string.length = max(0,string.length+0.01)
+			string.length = min(8.0,string.length+0.01)
 		elif heldKeys[pygame.K_j]:
-			string.length = max(0,string.length-0.01)
+			string.length = max(0.01,string.length-0.01)
 
 
 		#reset all
@@ -211,15 +211,15 @@ def main():
 
 		#control prompts
 		stringConnect = font.render("Connect string:           SPACE", 1, BLACK)
-		DISPLAY.blit(stringConnect, (480, 10))
+		DISPLAY.blit(stringConnect, (SCREEN_WIDTH-300, 10))
 		stringControl = font.render("String length +/-:        U/J", 1, BLACK)
-		DISPLAY.blit(stringControl, (480, 30))
+		DISPLAY.blit(stringControl, (SCREEN_WIDTH-300, 30))
 		gravityControl = font.render("Gravity +/-:              I/K", 1, BLACK)
-		DISPLAY.blit(gravityControl, (480, 50))
+		DISPLAY.blit(gravityControl, (SCREEN_WIDTH-300, 50))
 		diameterControl = font.render("Ball diameter +/-:        O/L", 1, BLACK)
-		DISPLAY.blit(diameterControl, (480, 70))
+		DISPLAY.blit(diameterControl, (SCREEN_WIDTH-300, 70))
 		resetAllControl = font.render("Reset all:                R", 1, BLACK)
-		DISPLAY.blit(resetAllControl, (480, 90))
+		DISPLAY.blit(resetAllControl, (SCREEN_WIDTH-300, 90))
 		pygame.display.update()
 		CLOCK.tick(120)
 
